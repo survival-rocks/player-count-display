@@ -1,5 +1,6 @@
 #pragma once
-#include "esp_websocket_client.h"
+#include <esp_websocket_client.h>
+#include "../config.h"
 
-void init_websocket(void);
-void websocket_data(char*, int);
+void websocket_init(void);
+void websocket_data(const char*, uint8_t);
