@@ -8,3 +8,4 @@ void display_init(void);
 void display_send_byte(uint8_t data);
 void display_show(const char *data, uint8_t length);
 void display_task(void);
+void display_loading(void);

@@ -16,7 +16,23 @@ const uint8_t DIGITS[] = {
 uint8_t on_display[SEGMENTS];
 uint8_t position = 0;
 
+uint8_t loading = 0;
+uint8_t loading_position = 1;
+uint8_t loading_counter = 0;
+
 static bool IRAM_ATTR timer_on_alarm(gptimer_handle_t timer, const gptimer_alarm_event_data_t *edata, void *user_data) {
+    if (loading && ++loading_counter == 100) {
+        for (uint8_t i = 0; i < SEGMENTS; i++) {
+            on_display[i] = loading_position == i? 0b01111111 : 0xFF;
+        }
+
+        if (++loading_position >= SEGMENTS) {
+            loading_position = 1;
+        }
+
+        loading_counter = 0;
+    }
+
     display_task();
     return false;
 }
@@ -85,6 +101,7 @@ void display_digit(uint8_t digit, uint8_t position) {
 }
 
 void display_show(const char *data, uint8_t length) {
+    loading = 0;
     uint8_t len = length - 1;
     for (uint8_t i = 0; i < SEGMENTS; i++) {
         if (i < length) {
@@ -102,4 +119,8 @@ void display_task(void) {
     if (++position >= SEGMENTS) {
         position = 0;
     }
+}
+
+void display_loading(void) {
+    loading = 1;
 }
