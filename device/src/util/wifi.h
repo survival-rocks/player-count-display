@@ -1,5 +1,4 @@
 #pragma once
-#include <nvs_flash.h>
 #include <esp_wifi.h>
 #include "../config.h"
 

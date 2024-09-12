@@ -10,6 +10,10 @@ void wifi_disconnected(void) {
     display_loading();
 }
 
+void websocket_disconnected(void) {
+    display_loading();
+}
+
 void wifi_ready(void) {
     websocket_connect();
 }

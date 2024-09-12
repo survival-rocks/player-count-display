@@ -11,6 +11,10 @@ static void websocket_message_handler(void *handler_args, esp_event_base_t base,
     websocket_data(data -> data_ptr, length);
 }
 
+static void websocket_disconnect_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data) {
+    websocket_disconnected();
+}
+
 esp_websocket_client_handle_t client = NULL;
 
 void websocket_init(void) {
@@ -18,11 +22,12 @@ void websocket_init(void) {
         .uri = WEBSOCKET_URL,
         .disable_auto_reconnect = false,
         .network_timeout_ms = 10000,
-        .reconnect_timeout_ms = 200,
+        .reconnect_timeout_ms = 500,
     };
 
     client = esp_websocket_client_init(&websocket_cfg);
     esp_websocket_register_events(client, WEBSOCKET_EVENT_DATA, websocket_message_handler, (void*) client);
+    esp_websocket_register_events(client, WEBSOCKET_EVENT_DISCONNECTED, websocket_disconnect_handler, (void*) client);
 }
 
 void websocket_connect(void) {
