@@ -1,6 +1,6 @@
+// credentials for wifi
 #define WIFI_SSID ""
 #define WIFI_PASSWORD ""
-// credentials for wifi
 
 // server to get the player count from
 #define WEBSOCKET_URL "ws://count.survival.rocks"
