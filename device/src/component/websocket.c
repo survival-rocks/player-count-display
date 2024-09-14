@@ -22,7 +22,7 @@ void websocket_init(void) {
         .uri = WEBSOCKET_URL,
         .disable_auto_reconnect = false,
         .network_timeout_ms = 10000,
-        .reconnect_timeout_ms = 500,
+        .reconnect_timeout_ms = 500
     };
 
     client = esp_websocket_client_init(&websocket_cfg);

@@ -1,19 +1,23 @@
-#include "util/wifi.h"
-#include "util/websocket.h"
-#include "util/display.h"
+#include "component/wifi.h"
+#include "component/websocket.h"
+#include "component/display.h"
 
+// when websocket data is received
 void websocket_data(const char *data, uint8_t length) {
     display_show(data, length);
 }
 
+// when wifi is disconnected
 void wifi_disconnected(void) {
     display_loading();
 }
 
+// when websocket is disconnected
 void websocket_disconnected(void) {
     display_loading();
 }
 
+// when wifi is ready
 void wifi_ready(void) {
     websocket_connect();
 }

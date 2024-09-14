@@ -1,9 +1,13 @@
 #define WIFI_SSID ""
 #define WIFI_PASSWORD ""
+// credentials for wifi
 
-#define SCLK_PIN (uint8_t)4
-#define RCLK_PIN (uint8_t)3
-#define DIO_PIN (uint8_t)2
-
+// server to get the player count from
 #define WEBSOCKET_URL "ws://count.survival.rocks"
-#define SEGMENTS (uint8_t)4
+
+// what display to use
+#define DISPLAY_3631AS
+
+// all display options:
+//  DISPLAY_3631AS
+//  DISPLAY_3461BS_74HC595

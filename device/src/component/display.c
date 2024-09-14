@@ -44,14 +44,7 @@ void display_init(void) {
     }
 
     // gpio
-    gpio_config_t io_conf = {
-        .intr_type = GPIO_INTR_DISABLE,
-        .mode = GPIO_MODE_OUTPUT,
-        .pin_bit_mask = (1 << SCLK_PIN) | (1 << RCLK_PIN) | (1 << DIO_PIN),
-        .pull_down_en = 0,
-        .pull_up_en = 0,
-    };
-    gpio_config(&io_conf);
+    display_init_gpio();
 
     // interrupt timer
     gptimer_config_t timer_config = {
@@ -78,26 +71,6 @@ void display_init(void) {
     gptimer_register_event_callbacks(gptimer, &cbs, NULL);
     gptimer_enable(gptimer);
     gptimer_start(gptimer);
-}
-
-void display_send_byte(uint8_t byte) {
-    for (uint8_t i = 0; i < 8; i++) {
-        gpio_set_level(SCLK_PIN, 0);
-        gpio_set_level(DIO_PIN, (byte & 0x80)? 1 : 0);
-        gpio_set_level(SCLK_PIN, 1);
-        byte <<= 1;
-    }
-}
-
-void display_digit(uint8_t digit, uint8_t position) {
-    // send data
-    display_send_byte(digit);
-    display_send_byte(1 << position);
-
-    // latch data
-    gpio_set_level(RCLK_PIN, 0);
-    gpio_set_level(RCLK_PIN, 1);
-    gpio_set_level(RCLK_PIN, 0);
 }
 
 void display_show(const char *data, uint8_t length) {
