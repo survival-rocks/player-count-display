@@ -50,14 +50,14 @@ void display_init(void) {
     gptimer_config_t timer_config = {
         .clk_src = GPTIMER_CLK_SRC_DEFAULT,
         .direction = GPTIMER_COUNT_UP,
-        .resolution_hz = 1000000 // 1MHz
+        .resolution_hz = 10000 // 10kHz
     };
 
     gptimer_handle_t gptimer = NULL;
     gptimer_new_timer(&timer_config, &gptimer);
 
     gptimer_alarm_config_t alarm_config = {
-        .alarm_count = 5000, // 5ms
+        .alarm_count = 167. / SEGMENTS, // 60Hz per segment
         .reload_count = 0,
         .flags.auto_reload_on_alarm = true
     };
