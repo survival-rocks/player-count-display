@@ -1,6 +1,8 @@
 # player-count-display
 Cheap device that displays the real-time player count of survival.rocks.
 
+![Example in action](https://github.com/user-attachments/assets/d803f3cc-562e-484e-9094-3367f891ab9b)
+
 ## Components
 - **ESP32-C3 Super-Mini**
 - **Supported Displays**
